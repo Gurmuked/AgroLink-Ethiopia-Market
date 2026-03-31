@@ -9,6 +9,7 @@ const router = express.Router();
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log('/login payload body:', req.body);
 
     // Check empty inputs
     if (!username || !password) {
@@ -17,6 +18,13 @@ router.post("/login", async (req, res) => {
 
     // Check user exists by username
     const user = await User.findOne({ username });
+    console.log('/login lookup result user:', user ? user._id : null);
+    if (!user) {
+      // extra diagnostic: try finding by email or case-insensitive
+      const byEmail = await User.findOne({ email: username });
+      const ci = await User.findOne({ username: new RegExp(`^${username}$`, 'i') });
+      console.log('/login diagnostics byEmail:', byEmail ? byEmail._id : null, 'ci:', ci ? ci._id : null);
+    }
     if (!user) {
       return res.status(400).json({ message: "User not found! Please register." });
     }

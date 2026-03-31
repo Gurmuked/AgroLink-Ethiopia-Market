@@ -15,4 +15,15 @@ router.get("/", protect, async (req, res) => {
   }
 });
 
+// GET current user profile
+router.get("/me", protect, async (req, res) => {
+  try {
+    if (!req.user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json(req.user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 export default router;

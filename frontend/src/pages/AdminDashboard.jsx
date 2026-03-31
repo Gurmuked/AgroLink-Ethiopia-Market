@@ -1,7 +1,7 @@
-import Sidebar from "../components/Admin/Sidebar";
-import ComplaintsTab from "../components/Admin/Complaint";
-import OrdersTab from "../components/Admin/OrderTab";
-import UsersTab from "../components/Admin/Verify";
+import Sidebar from "../components/AdminDashboard/Admin/Sidebar";
+import ComplaintsTab from "../components/AdminDashboard/Admin/Complaint";
+import OrdersTab from "../components/AdminDashboard/Admin/OrderTab";
+import UsersTab from "../components/AdminDashboard/Admin/Verify";
 
 export default function AdminDashboard() {
   return (

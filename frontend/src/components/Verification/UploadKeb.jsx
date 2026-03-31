@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FileText, IdCard } from "lucide-react";
 
 export default function AdditionalDocumentUpload() {
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
 
   const documentTypes = [
     {
@@ -19,14 +21,20 @@ export default function AdditionalDocumentUpload() {
     }
   ];
 
+  const handleContinue = () => {
+    // Here you could upload the selected document type
+    // For now, just navigate to next step
+    navigate('/buyer-dashboard/verification/upload-self');
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center p-6">
+    <div className="min-h-screen bg-green-50 flex justify-center p-6">
       <div className="w-full max-w-3xl bg-white shadow-lg rounded-xl p-8">
 
         {/* Top Step Indicator */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
+            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-600 text-white font-semibold">
               2
             </div>
             <span className="text-gray-700 font-medium">Kebele ID</span>
@@ -42,7 +50,7 @@ export default function AdditionalDocumentUpload() {
             <span>66% Complete</span>
           </div>
           <div className="w-full bg-gray-200 h-2 rounded-full">
-            <div className="bg-blue-600 h-2 rounded-full" style={{ width: "66%" }}></div>
+            <div className="bg-green-600 h-2 rounded-full" style={{ width: "66%" }}></div>
           </div>
         </div>
 
@@ -78,9 +86,10 @@ export default function AdditionalDocumentUpload() {
           <button className="text-gray-600 hover:underline">Back</button>
 
           <button
+            onClick={handleContinue}
             disabled={!selected}
             className={`px-6 py-2 rounded-lg text-white font-medium
-              ${selected ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-300 cursor-not-allowed"}`}
+              ${selected ? "bg-green-600 hover:bg-green-800" : "bg-gray-300 cursor-not-allowed"}`}
           >
             Continue
           </button>

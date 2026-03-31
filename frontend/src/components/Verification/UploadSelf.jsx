@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import { CheckCircle } from "lucide-react";
 
 export default function SelfieCapture() {
   const webcamRef = useRef(null);
+  const navigate = useNavigate();
 
   const [cameraOpen, setCameraOpen] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -28,14 +30,47 @@ export default function SelfieCapture() {
     setCameraOpen(false);
   };
 
+  const handleComplete = async () => {
+    // Here you would submit all the verification data to the backend
+    // For now, we'll just navigate back to profile
+    // In a real app, this would send the files to the server and set verification status to pending
+    
+    // Simulate API call
+    try {
+      const token = localStorage.getItem('token');
+      // Submit verification request to backend
+      const response = await fetch('http://localhost:5000/api/verification/submit', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          // Include the uploaded files data
+          status: 'pending' // Admin will approve later
+        })
+      });
+      
+      if (response.ok) {
+        alert('Verification submitted successfully! Please wait for admin approval.');
+        navigate('/buyer-dashboard/profile');
+      } else {
+        alert('Failed to submit verification. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting verification:', error);
+      alert('Error submitting verification. Please try again.');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center p-6">
+    <div className="min-h-screen bg-green-50 flex justify-center p-6">
       <div className="w-full max-w-3xl bg-white shadow-lg rounded-xl p-8">
 
                 {/* Top Step Indicator */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
+            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-600 text-white font-semibold">
               3
             </div>
             <span className="text-gray-700 font-medium">Selfie</span>
@@ -51,7 +86,7 @@ export default function SelfieCapture() {
             <span>100% Complete</span>
           </div>
           <div className="w-full bg-gray-200 h-2 rounded-full">
-            <div className="bg-blue-600 h-2 rounded-full" style={{ width: "100%" }}></div>
+            <div className="bg-green-600 h-2 rounded-full" style={{ width: "100%" }}></div>
           </div>
         </div>
 
@@ -152,9 +187,10 @@ export default function SelfieCapture() {
           <button className="text-gray-600 hover:underline">Back</button>
 
           <button
+            onClick={handleComplete}
             disabled={!continueEnabled}
             className={`px-6 py-2 rounded-lg text-white 
-              ${continueEnabled ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-300 cursor-not-allowed"}`}
+              ${continueEnabled ? "bg-green-600 hover:bg-green-800" : "bg-gray-300 cursor-not-allowed"}`}
           >
             Complete
           </button>

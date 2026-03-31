@@ -1,10 +1,10 @@
 import React from "react";
-import Sidebar from "../components/seller/Sidebar";
-import StatCard from "../components/seller/StatCard";
+import Sidebar from "../components/SellerDashboard/seller/Sidebar";
+import StatCard from "../components/SellerDashboard/seller/StatCard";
 //import RevenueChart from "../components/seller/RevenueChart";
-import TopProducts from "../components/seller/TopProducts";
-import RecentOrders from "../components/seller/RecentOrders";
-import QuickActions from "../components/seller/QuickActions";
+import TopProducts from "../components/SellerDashboard/seller/TopProducts";
+import RecentOrders from "../components/SellerDashboard/seller/RecentOrders";
+import QuickActions from "../components/SellerDashboard/seller/QuickActions";
 import { GiShoppingBag } from "react-icons/gi";
 import { GoClock } from "react-icons/go";
 import { BiDollar } from "react-icons/bi";
@@ -16,7 +16,7 @@ export default function SellerDashboard() {
       <Sidebar />
 
       {/* 🧠 Dashboard content */}
-      <main className="flex-1 ml-[290px] ">
+      <main className="flex-1 ml-72 ">
         <h1 className="text-2xl font-bold mb-2 pt-4 pl-8">Framer Dashboard</h1>
 
         {/* Top Stats */}

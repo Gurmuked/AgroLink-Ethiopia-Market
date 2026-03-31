@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   Package,
@@ -12,16 +13,16 @@ import {
 const SellerSidebar = () => {
   const menu = [
     { name: "Dashboard", icon: <LayoutDashboard size={18} />, path: "/seller-dashboard" },
-    { name: "Manage Products", icon: <Package size={18} />, path: "/seller/products" },
-    { name: "Add Product", icon: <PlusCircle size={18} />, path: "/seller/add-product" },
-    { name: "Orders", icon: <ShoppingCart size={18} />, path: "/seller/orders" },
+    { name: "Manage Products", icon: <Package size={18} />, path: "/seller-dashboard/products" },
+    { name: "Add Product", icon: <PlusCircle size={18} />, path: "/seller-dashboard/add-product" },
+    { name: "Orders", icon: <ShoppingCart size={18} />, path: "/seller-dashboard/orders" },
     { name: "Transactions", icon: <CreditCard size={18} />, path: "/seller/transactions" },
     { name: "Profile", icon: <User size={18} />, path: "/seller/profile" },
     { name: "Settings", icon: <Settings size={18} />, path: "/seller/settings" },
   ];
 
   return (
-    <aside className="w-72 bg-white border-r border-gray-200 h-[90vh] p-5 flex flex-col fixed">
+    <aside className="w-72 bg-white border-r border-gray-200 p-5 flex flex-col fixed top-16 left-0 h-[calc(100vh-4rem)] z-40 overflow-y-auto">
       <div className="mb-6 flex items-center gap-3">
         <div className="w-10 h-10 rounded-lg bg-green-700 flex items-center justify-center text-white font-bold">
           AG
@@ -38,8 +39,10 @@ const SellerSidebar = () => {
               key={item.name}
               className= "flex items-center gap-3 p-2 rounded-lg hover:bg-green-100 cursor-pointer"
             >
-              {item.icon}
-              <span>{item.name}</span>
+              <Link to={item.path} className="flex items-center gap-3 w-full">
+                {item.icon}
+                <span>{item.name}</span>
+              </Link>
             </li>
           ))}
         </ul>
